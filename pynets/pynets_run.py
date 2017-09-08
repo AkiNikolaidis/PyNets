@@ -30,7 +30,12 @@ if __name__ == '__main__':
         help='Specify a single coordinate atlas parcellation of those availabe in nilearn. Default is coords_power_2011. Available atlases are:\n\natlas_aal \natlas_destrieux_2009 \ncoords_dosenbach_2010 \ncoords_power_2011')
     parser.add_argument('-basc',
        default=False,
+<<<<<<< HEAD
        help='Specify whether you want to run BASC to calculate a group level set of nodes')                              
+=======
+       action='store_true',
+       help='Specify whether you want to run BASC to calculate a group level set of nodes')
+>>>>>>> master
     parser.add_argument('-ua',
         metavar='Path to parcellation file',
         default=None,
@@ -38,7 +43,11 @@ if __name__ == '__main__':
     parser.add_argument('-pm',
         metavar='Number of Cores and GB of Memory',
         default= '2,4',
+<<<<<<< HEAD
         help='Number of cores to use, number of GB of memory to use')
+=======
+        help='Number of cores to use, number of GB of memory to use, please enter as two integer seperated by a comma')
+>>>>>>> master
     parser.add_argument('-n',
         metavar='RSN',
         default=None,
@@ -109,12 +118,19 @@ if __name__ == '__main__':
         help='Threshold step value for multi-thresholding. Default is 0.01.')
     args = parser.parse_args()
     
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
     ###Set Arguments to global variables###
     input_file=args.i
     ID=args.ID
     atlas_select=args.a
+<<<<<<< HEAD
     basc=bool(args.basc)
+=======
+    basc=args.basc
+>>>>>>> master
     parlistfile=args.ua
     procmem=list(eval(str((args.pm))))
     NETWORK=args.n
@@ -135,12 +151,16 @@ if __name__ == '__main__':
     max_thr=args.max_thr
     step_thr=args.step_thr
     
+<<<<<<< HEAD
 
     
     
     print('Starting up! ヾ｜￣ー￣｜ﾉ')
     
     #######################################
+=======
+    print('Starting up! ヾ｜￣ー￣｜ﾉ')
+>>>>>>> master
 
     ##Check required inputs for existence, and configure run
     if input_file.endswith('.txt'):
@@ -157,6 +177,13 @@ if __name__ == '__main__':
         print("Error: You must include a subject ID in your command line call")
         sys.exit()
 
+<<<<<<< HEAD
+=======
+    if basc == True:
+       from pynets import basc_run
+       basc_run(subjects_list, basc_config)
+       parlistfile='/Users/aki.nikolaidis/PyTest/workflow_output/gsclusters_img/group_stability_clusters.nii.gz'
+>>>>>>> master
        
     if dens_thresh is not None or adapt_thresh != False:
         thr=None
@@ -223,7 +250,10 @@ if __name__ == '__main__':
     print('                     <(^.^<)')
     print('                        <(^.^<)')
     print('                           <(^.^<)')
+<<<<<<< HEAD
     
+=======
+>>>>>>> master
     ##Import core modules
     import nilearn
     import numpy as np
@@ -253,6 +283,7 @@ if __name__ == '__main__':
     from sklearn.covariance import GraphLassoCV, ShrunkCovariance, graph_lasso
     from nipype.interfaces.base import BaseInterface, BaseInterfaceInputSpec, TraitedSpec, File, traits
 
+<<<<<<< HEAD
 
 
     if basc == True:
@@ -270,6 +301,8 @@ if __name__ == '__main__':
        parlistfile='/Users/aki.nikolaidis/Desktop/PyTest/workflow_output/gsclusters_img/group_stability_clusters.nii.gz'
        #List = open("filename.txt").readlines()
 
+=======
+>>>>>>> master
     def workflow_selector(input_file, ID, atlas_select, NETWORK, node_size, mask, thr, parlistfile, all_nets, conn_model, dens_thresh, conf, adapt_thresh, plot_switch, bedpostx_dir):
         import pynets
         from pynets import workflows
@@ -437,7 +470,11 @@ if __name__ == '__main__':
 
         if imp_est_iterables:
             imp_est.iterables = imp_est_iterables
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> master
         net_mets_node = pe.Node(ExtractNetStats(), name = "ExtractNetStats")
         export_to_pandas_node = pe.Node(Export2Pandas(), name = "export_to_pandas")
 
@@ -512,8 +549,13 @@ if __name__ == '__main__':
         wf_multi = wf_multi_subject(subjects_list, atlas_select, NETWORK, node_size,
         mask, thr, parlistfile, all_nets, conn_model, dens_thresh, conf, adapt_thresh,
         plot_switch, bedpostx_dir, multi_thr, multi_atlas, min_thr, max_thr, step_thr)
+<<<<<<< HEAD
         plugin_args = { 'n_procs' : int(procmem[0]),'memory_gb': int(procmem[1])} 
         #wf_multi.run(plugin='MultiProc')
+=======
+        #wf_multi.run(plugin='MultiProc')
+        plugin_args = { 'n_procs' : int(procmem[0]),'memory_gb': int(procmem[1])}
+>>>>>>> master
         wf_multi.run(plugin='MultiProc', plugin_args= plugin_args)
     ##Single-subject workflow generator
     else:
@@ -522,6 +564,7 @@ if __name__ == '__main__':
         adapt_thresh, plot_switch, bedpostx_dir, multi_thr, multi_atlas, min_thr,
         max_thr, step_thr)
         #wf.run(plugin='MultiProc')
+<<<<<<< HEAD
         plugin_args = { 'n_procs' : int(procmem[0]),'memory_gb': int(procmem[1])} 
         wf.run(plugin='MultiProc', plugin_args= plugin_args)
 
@@ -530,3 +573,9 @@ if __name__ == '__main__':
     print('Time execution : ', timeit.default_timer() - start_time)
     print('---------PYNETS COMPLETE------------')
     print(' CHEERS!（ ^_^）o自自o（^_^ ）CHEERS!')
+=======
+        plugin_args = { 'n_procs' : int(procmem[0]),'memory_gb': int(procmem[1])}
+        wf.run(plugin='MultiProc', plugin_args= plugin_args)
+
+    print('Time execution : ', timeit.default_timer() - start_time)
+>>>>>>> master
